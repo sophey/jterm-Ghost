@@ -16,6 +16,7 @@
 
 package com.google.engedu.ghost;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -28,13 +29,39 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class FastDictionaryTest {
+
+    FastDictionary dictionary;
+
+    @Before
+    public void createDictionary() {
+        ArrayList<String> words = new ArrayList<>(Arrays.asList(new
+                String[]{"alpha", "alphabet", "beast", "beta", "bib", "cake",
+                "drone", "match", "math", "meet", "round", "zoo"}));
+        dictionary = new FastDictionary(words);
+    }
+
     @Test
     public void testIsWord() {
-        // TODO(you): Add some tests!
+        assertEquals(false, dictionary.isWord("zo"));
+        assertEquals(true, dictionary.isWord("zoo"));
+        assertEquals(true, dictionary.isWord("drone"));
+        assertEquals(true, dictionary.isWord("beta"));
+        assertEquals(true, dictionary.isWord("bib"));
     }
 
     @Test
     public void testGetAnyWordStartingWith() {
-        // TODO(you): Add some tests!
+        assertEquals("zoo", dictionary.getAnyWordStartingWith("zo"));
+        assertEquals(null, dictionary.getAnyWordStartingWith("alb"));
+        assertEquals("cake", dictionary.getAnyWordStartingWith("c"));
     }
+
+    @Test
+    public void testGetGoodWordStartingWith() {
+        assertEquals("match", dictionary.getGoodWordStartingWith("m"));
+        assertEquals("alpha", dictionary.getGoodWordStartingWith("a"));
+        assertEquals("beta", dictionary.getGoodWordStartingWith("be"));
+        assertEquals("beast", dictionary.getGoodWordStartingWith("b"));
+    }
+
 }

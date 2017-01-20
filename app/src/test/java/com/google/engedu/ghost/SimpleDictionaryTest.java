@@ -18,6 +18,7 @@ package com.google.engedu.ghost;
 
 import junit.framework.Assert;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -31,13 +32,34 @@ import static org.junit.Assert.assertTrue;
 
 public class SimpleDictionaryTest {
 
+    SimpleDictionary dictionary;
+
+    @Before
+    public void createDictionary() {
+        ArrayList<String> words = new ArrayList<>(Arrays.asList(new
+                String[]{"alpha", "alphabet", "beast", "bet", "beta", "cake",
+                "drone", "match", "math", "meet", "round", "zoo"}));
+        dictionary = new SimpleDictionary(words, 10);
+    }
+
     @Test
     public void testIsWord() {
-        // TODO(you): Add some tests!
+        assertEquals(false, dictionary.isWord("zo"));
+        assertEquals(true, dictionary.isWord("zoo"));
+        assertEquals(true, dictionary.isWord("drone"));
     }
 
     @Test
     public void testGetAnyWordStartingWith() {
-        // TODO(you): Add some tests!
+        assertEquals("zoo", dictionary.getAnyWordStartingWith("zo"));
+        assertEquals(null, dictionary.getAnyWordStartingWith("alb"));
+        assertEquals("cake", dictionary.getAnyWordStartingWith("c"));
+    }
+
+    @Test
+    public void testGetGoodWordStartingWith() {
+        assertEquals("match", dictionary.getGoodWordStartingWith("m"));
+        assertEquals("alphabet", dictionary.getGoodWordStartingWith("al"));
+        assertEquals("beta", dictionary.getGoodWordStartingWith("be"));
     }
 }
